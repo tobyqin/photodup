@@ -1,6 +1,7 @@
 import sqlite3
 
-db_file = "photo.db"
+from config import db_file
+
 conn = sqlite3.connect(db_file)
 cursor = conn.cursor()
 
