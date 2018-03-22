@@ -1,6 +1,8 @@
 import hashlib
 import logging
 
+from config import cache
+
 
 def md5sum(filename, blocksize=65536):
     hash = hashlib.md5()
@@ -11,12 +13,14 @@ def md5sum(filename, blocksize=65536):
 
 
 def setup():
-    fmt = '%(asctime)s %(levelname)-8s: %(message)s'
-    logging.basicConfig(level=logging.DEBUG,
-                        format=fmt,
-                        filename='duplicate.log')
+    if 'setup' not in cache:
+        fmt = '%(asctime)s %(levelname)-8s: %(message)s'
+        logging.basicConfig(level=logging.DEBUG,
+                            format=fmt,
+                            filename='photo.log')
 
-    console = logging.StreamHandler()
-    console.setLevel(logging.DEBUG)
-    console.setFormatter(logging.Formatter(fmt))
-    logging.getLogger().addHandler(console)
+        console = logging.StreamHandler()
+        console.setLevel(logging.DEBUG)
+        console.setFormatter(logging.Formatter(fmt))
+        logging.getLogger().addHandler(console)
+        cache['setup'] = True
