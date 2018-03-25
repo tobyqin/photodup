@@ -55,6 +55,14 @@ def find_duplicate():
     return rows
 
 
+def get_dup_by_hash(limit):
+    cursor.execute('''SELECT * FROM photo WHERE hash IN
+                         (SELECT hash FROM photo GROUP BY hash 
+                         HAVING count(*) > 1 ORDER BY count(*) DESC LIMIT {})'''.format(limit))
+    rows = cursor.fetchall()
+    return rows
+
+
 def close_db():
     if conn is not None:
         conn.close()

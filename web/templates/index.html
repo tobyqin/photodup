@@ -1,0 +1,26 @@
+{% extends "./layout.html" %}
+
+{% block title %}Photo Dup by Hash{% endblock %}
+
+{% block content_area %}
+    {% for k,v in data.items() %}
+        <h3>{{ k }}
+            <small class="text-muted">count: {{ v | length }}</small>
+        </h3>
+        <hr>
+        <form action=".">
+            <div class="form-check">
+                {% for file in v %}
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" value="{{ file.0 }}">
+                        {{ file.3 }} <a>view</a>
+                    </label><br>
+                {% endfor %}
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Delete</button>
+        </form>
+    {% endfor %}
+
+
+{% endblock %}
