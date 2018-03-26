@@ -60,8 +60,12 @@ def index():
 def file(id):
     file = get_file_by_id(id)
     file_path = file[3] if file else 'no such file!!!'
+    ext = os.path.splitext(file_path)[-1].lower()
 
     if not os.path.exists(file_path):
         file_path = os.path.join(os.path.dirname(__file__), 'static/404.jpg')
+
+    elif ext not in ['.jpg', '.png', '.gif', '.bmp', '.jpeg']:
+        file_path = os.path.join(os.path.dirname(__file__), 'static/not_supported.jpg')
 
     return send_file(file_path)
