@@ -3,7 +3,7 @@ import os
 from flask import render_template, Flask, send_file, request
 from flask_bootstrap import Bootstrap
 
-from db import get_dup_by_hash, get_file_by_id, get_dup_by_name
+from db import get_dup_by_hash, get_file_by_id, get_dup_by_name, delete_file_by_id
 from web import Config
 
 app = Flask(__name__)
@@ -46,16 +46,11 @@ def get_name_dup(limit=10):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        to_be_deleted = request.form
-        print(to_be_deleted)
+        for file_id in request.form:
+            delete_file_by_id(file_id)
 
     by = request.args.get('by', 'hash')
-
-    if by == 'name':
-        data = get_name_dup()
-    else:
-        data = get_hash_dup()
-
+    data = get_name_dup() if by == 'name' else get_hash_dup()
     return render_template('index.html', data=data, by=by)
 
 

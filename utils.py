@@ -1,7 +1,7 @@
 import hashlib
 import logging
 
-from config import cache
+from config import cache, log_file
 
 
 def md5sum(filename, blocksize=65536):
@@ -17,7 +17,7 @@ def setup():
         fmt = '%(asctime)s %(levelname)-8s: %(message)s'
         logging.basicConfig(level=logging.DEBUG,
                             format=fmt,
-                            filename='photo.log')
+                            handlers=[logging.FileHandler(log_file, 'w', 'utf-8')])
 
         console = logging.StreamHandler()
         console.setLevel(logging.DEBUG)

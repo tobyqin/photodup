@@ -1,7 +1,10 @@
+import logging
 import sqlite3
 
 from config import db_file
+from utils import setup
 
+setup()
 conn = sqlite3.connect(db_file)
 cursor = conn.cursor()
 
@@ -70,9 +73,15 @@ def get_dup_by_name(limit):
     rows = cursor.fetchall()
     return rows
 
+
 def get_file_by_id(id):
     cursor.execute('''SELECT * FROM photo WHERE id=?''', (id,))
     return cursor.fetchone()
+
+
+def delete_file_by_id(id):
+    file = get_file_by_id(id)
+    logging.info('Delete file <{}>: {}'.format(file[0], file[3]))
 
 
 def close_db():
