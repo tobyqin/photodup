@@ -63,6 +63,13 @@ def get_dup_by_hash(limit):
     return rows
 
 
+def get_dup_by_name(limit):
+    cursor.execute('''SELECT * FROM photo WHERE name IN
+                         (SELECT name FROM photo GROUP BY name 
+                         HAVING count(*) > 1 ORDER BY count(*) DESC LIMIT {})'''.format(limit))
+    rows = cursor.fetchall()
+    return rows
+
 def get_file_by_id(id):
     cursor.execute('''SELECT * FROM photo WHERE id=?''', (id,))
     return cursor.fetchone()

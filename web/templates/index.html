@@ -4,7 +4,7 @@
 
 {% block content_area %}
     {% for k,v in data.items() %}
-        <h3>{{ k }}
+        <h3>{{ k | upper }}
             <small class="text-muted">count: {{ v | length }}</small>
         </h3>
         <hr>
