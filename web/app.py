@@ -45,6 +45,10 @@ def get_name_dup(limit=10):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        to_be_deleted = request.form
+        print(to_be_deleted)
+
     by = request.args.get('by', 'hash')
 
     if by == 'name':

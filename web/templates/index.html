@@ -8,11 +8,11 @@
             <small class="text-muted">count: {{ v | length }}</small>
         </h3>
         <hr>
-        <form action=".">
+        <form action="{{ request.url }}" method="post">
             <div class="form-check">
                 {% for file in v %}
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="{{ file.0 }}">
+                        <input type="checkbox" class="form-check-input" name="{{ file.0 }}">
                         {{ file.3 }} <a class="my-tooltip"
                                         data-toggle="tooltip"
                                         title="<img src='/file/{{ file.0 }}' width='200'>"
