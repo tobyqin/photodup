@@ -1,4 +1,5 @@
 import os
+from collections import OrderedDict
 
 from flask import render_template, Flask, send_file, request
 from flask_bootstrap import Bootstrap
@@ -51,6 +52,7 @@ def index():
 
     by = request.args.get('by', 'hash')
     data = get_name_dup() if by == 'name' else get_hash_dup()
+    data = OrderedDict(sorted(data.items(), key=lambda x: -len(x[1])))  # sort by count desc
     return render_template('index.html', data=data, by=by)
 
 

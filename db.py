@@ -1,4 +1,5 @@
 import logging
+import os
 import sqlite3
 
 from config import db_file
@@ -61,7 +62,8 @@ def find_duplicate():
 def get_dup_by_hash(limit):
     cursor.execute('''SELECT * FROM photo WHERE hash IN
                          (SELECT hash FROM photo GROUP BY hash 
-                         HAVING count(*) > 1 ORDER BY count(*) DESC LIMIT {})'''.format(limit))
+                         HAVING count(*) > 1 ORDER BY count(*) DESC LIMIT {})
+                         AND existed=1'''.format(limit))
     rows = cursor.fetchall()
     return rows
 
@@ -69,7 +71,8 @@ def get_dup_by_hash(limit):
 def get_dup_by_name(limit):
     cursor.execute('''SELECT * FROM photo WHERE name IN
                          (SELECT name FROM photo GROUP BY name 
-                         HAVING count(*) > 1 ORDER BY count(*) DESC LIMIT {})'''.format(limit))
+                         HAVING count(*) > 1 ORDER BY count(*) DESC LIMIT {})
+                         AND existed=1'''.format(limit))
     rows = cursor.fetchall()
     return rows
 
@@ -81,7 +84,17 @@ def get_file_by_id(id):
 
 def delete_file_by_id(id):
     file = get_file_by_id(id)
-    logging.info('Delete file <{}>: {}'.format(file[0], file[3]))
+
+    if not file:
+        logging.warning('no such file: {}'.format(id))
+
+    file_path = file[3]
+    logging.info('Delete file <{}>: {}'.format(id, file_path))
+
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+    mark_deleted(file_path)
 
 
 def close_db():
