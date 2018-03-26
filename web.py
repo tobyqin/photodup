@@ -1,3 +1,4 @@
+from config import port
 from web.app import app
 
-app.run()
+app.run(port=port)

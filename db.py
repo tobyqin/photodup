@@ -63,6 +63,11 @@ def get_dup_by_hash(limit):
     return rows
 
 
+def get_file_by_id(id):
+    cursor.execute('''SELECT * FROM photo WHERE id=?''', (id,))
+    return cursor.fetchone()
+
+
 def close_db():
     if conn is not None:
         conn.close()

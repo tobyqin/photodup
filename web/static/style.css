@@ -37,3 +37,16 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.my-tooltip + .tooltip > .tooltip-inner {
+    padding: 5px 205px 5px 5px;
+    background-color: silver;
+}
+
+.my-tooltip + .tooltip > .tooltip-arrow {
+    background-color: transparent;
+}
+
+.my-tooltip + .tooltip.right > .tooltip-arrow {
+    border-width: 0;
+}

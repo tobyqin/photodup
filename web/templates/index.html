@@ -13,7 +13,10 @@
                 {% for file in v %}
                     <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" value="{{ file.0 }}">
-                        {{ file.3 }} <a>view</a>
+                        {{ file.3 }} <a class="my-tooltip"
+                                        data-toggle="tooltip"
+                                        title="<img src='/file/{{ file.0 }}' width='200'>"
+                    >preview</a>
                     </label><br>
                 {% endfor %}
             </div>
@@ -21,6 +24,5 @@
             <button type="submit" class="btn btn-primary">Delete</button>
         </form>
     {% endfor %}
-
 
 {% endblock %}
