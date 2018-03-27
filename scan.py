@@ -19,6 +19,7 @@ def walk_dir(dir_root, action_on_file):
 
 def count_files(from_dir, pattern="*.*"):
     """count files by pattern in a dir."""
+
     cache['file_count'] = 0
 
     def count_action(file):
@@ -38,6 +39,7 @@ def test_count_files():
 
 def save_files_to_db(from_dir, pattern='*.*'):
     """save files by pattern into the db."""
+
     cache['current'] = 0
     total_count = count_files(from_dir, pattern)
     logging.info('Now scan files({}) from {} ...'.format(pattern, from_dir))
@@ -64,7 +66,7 @@ def save_files_to_db(from_dir, pattern='*.*'):
 
 def test_save_files_to_db():
     logging.info('Start...')
-    save_files_to_db(default_scan_path, '*.jpg')
+    save_files_to_db(default_scan_path, scan_file_type)
     logging.info('Done!')
 
 
@@ -97,4 +99,4 @@ if __name__ == '__main__':
         dirs_to_scan = sys.argv[1:]
 
         for dir in dirs_to_scan:
-            save_files_to_db(dir, '*.jpg')
+            save_files_to_db(dir, scan_file_type)

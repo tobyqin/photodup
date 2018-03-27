@@ -1,6 +1,6 @@
 {% extends "./layout.html" %}
 
-{% block title %}Photo Dup by Hash{% endblock %}
+{% block title %}Duplicates by {{ by | upper }}{% endblock %}
 
 {% block content_area %}
     {% for k,v in data.items() %}

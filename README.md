@@ -1,5 +1,5 @@
 # photodup
-Find duplicate photos on your computer.
+Find duplicate photos (or any other file types) on your computer. Python 3.x required.
 
 # Step 0
 
@@ -11,7 +11,7 @@ pip install -r requirements.txt
 
 # Step 1
 
-Create the database structure.
+Create a database for later scanning.
 
 ```shell
 python db.py
@@ -27,14 +27,18 @@ Run command to scan all photos from somewhere.
 python scan.py dir1 dir2
 ```
 
-This action will save all photo files(*.jpg only) into database.
+This action will scan all photo files(*.jpg by default, check `config.py`) into database.
 
 # Step2 
 
-Run command to start a webserver to help identify duplicate photos.
+Run command to start a web page to help identify duplicate photos / files.
 
 ```
 python web.py
 ```
 
-Launch browser to http://127.0.0.1:5000 to cleanup duplicate photos.
+Launch browser to http://127.0.0.1:5001 to cleanup the duplicates. You will be able to clean up files by hash or file name.
+
+![dup_by_hash](web/static/dup_by_hash.png)
+
+![dup_by_name](web/static/dup_by_name.png)

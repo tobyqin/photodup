@@ -52,13 +52,6 @@ def mark_deleted(file_path):
     conn.commit()
 
 
-def find_duplicate():
-    cursor.execute('''SELECT * FROM photo WHERE hash IN
-                      (SELECT hash FROM photo GROUP BY hash HAVING count(*) > 1)''')
-    rows = cursor.fetchall()
-    return rows
-
-
 def get_dup_by_hash(limit):
     cursor.execute('''SELECT * FROM photo WHERE hash IN
                          (SELECT hash FROM photo WHERE existed = 1
