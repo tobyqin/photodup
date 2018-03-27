@@ -61,8 +61,9 @@ def find_duplicate():
 
 def get_dup_by_hash(limit):
     cursor.execute('''SELECT * FROM photo WHERE hash IN
-                         (SELECT hash FROM photo GROUP BY hash 
-                         HAVING count(*) > 1 ORDER BY count(*) DESC LIMIT {})
+                         (SELECT hash FROM photo WHERE existed = 1
+                         GROUP BY hash HAVING count(*) > 1 
+                         ORDER BY count(*) DESC LIMIT {})
                          AND existed=1'''.format(limit))
     rows = cursor.fetchall()
     return rows
@@ -70,8 +71,9 @@ def get_dup_by_hash(limit):
 
 def get_dup_by_name(limit):
     cursor.execute('''SELECT * FROM photo WHERE name IN
-                         (SELECT name FROM photo GROUP BY name 
-                         HAVING count(*) > 1 ORDER BY count(*) DESC LIMIT {})
+                         (SELECT name FROM photo WHERE existed = 1
+                         GROUP BY name HAVING count(*) > 1 
+                         ORDER BY count(*) DESC LIMIT {})
                          AND existed=1'''.format(limit))
     rows = cursor.fetchall()
     return rows
