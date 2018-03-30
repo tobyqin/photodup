@@ -21,8 +21,6 @@ def get_hash_dup(limit=10):
         if hash not in data:
             data[hash] = []
 
-        row = list(row)
-
         data[hash].append(list(row))
 
     return data
@@ -36,8 +34,6 @@ def get_name_dup(limit=10):
         name = row[2]
         if name not in data:
             data[name] = []
-
-        row = list(row)
 
         data[name].append(list(row))
 
