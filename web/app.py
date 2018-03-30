@@ -4,6 +4,7 @@ from collections import OrderedDict
 from flask import render_template, Flask, send_file, request
 from flask_bootstrap import Bootstrap
 
+from config import web_show_counts
 from db import get_dup_by_hash, get_file_by_id, get_dup_by_name, delete_file_by_id
 from web import Config
 
@@ -12,7 +13,7 @@ app.config.from_object(Config)
 Bootstrap(app)
 
 
-def get_hash_dup(limit=10):
+def get_hash_dup(limit=web_show_counts):
     rows = get_dup_by_hash(limit)
     data = {}
 
@@ -26,7 +27,7 @@ def get_hash_dup(limit=10):
     return data
 
 
-def get_name_dup(limit=10):
+def get_name_dup(limit=web_show_counts):
     rows = get_dup_by_name(limit)
     data = {}
 
