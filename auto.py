@@ -3,7 +3,7 @@ import logging
 from web.app import get_hash_dup, delete_file_by_id
 
 main_folder = r'E:\照片'
-process_count = 1000
+process_count = 20000
 
 dup = get_hash_dup(process_count)
 
@@ -24,7 +24,10 @@ def cleanup_files(files):
         file, file_id = f[3], f[0]
         if not file.startswith(main_folder):
             logging.info('delete {}'.format(file))
-            delete_file_by_id(file_id)
+            try:
+                delete_file_by_id(file_id)
+            except:
+                logging.exception('failed!')
         else:
             logging.info('keep {}'.format(file))
 
