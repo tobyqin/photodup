@@ -21,17 +21,17 @@ This action will create a `photo.db` in workspace.
 
 # Step 2
 
-Run command to scan all photos from somewhere.
+Run command to scan all photos from somewhere, multiple `dirs` accepted.
 
 ```shell
 python scan.py dir1 dir2
 ```
 
-This action will scan all photo files(*.jpg by default, check `config.py`) into database.
+This action will scan all photo files into database (*.jpg by default, check `config.py`).
 
 # Step2 
 
-Run command to start a web page to help identify duplicate photos / files.
+Run command to start a web page to help you identify duplicate photos / files.
 
 ```
 python web.py

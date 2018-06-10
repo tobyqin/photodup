@@ -4,15 +4,17 @@ from collections import OrderedDict
 from flask import render_template, Flask, send_file, request
 from flask_bootstrap import Bootstrap
 
+from config import web_show_counts, web_preview_types
 from db import get_dup_by_hash, get_file_by_id, get_dup_by_name, delete_file_by_id
 from web import Config
 
+web_root = os.path.dirname(__file__)
 app = Flask(__name__)
 app.config.from_object(Config)
 Bootstrap(app)
 
 
-def get_hash_dup(limit=10):
+def get_hash_dup(limit=web_show_counts):
     rows = get_dup_by_hash(limit)
     data = {}
 
@@ -21,14 +23,12 @@ def get_hash_dup(limit=10):
         if hash not in data:
             data[hash] = []
 
-        row = list(row)
-
         data[hash].append(list(row))
 
     return data
 
 
-def get_name_dup(limit=10):
+def get_name_dup(limit=web_show_counts):
     rows = get_dup_by_name(limit)
     data = {}
 
@@ -36,8 +36,6 @@ def get_name_dup(limit=10):
         name = row[2]
         if name not in data:
             data[name] = []
-
-        row = list(row)
 
         data[name].append(list(row))
 
@@ -63,9 +61,9 @@ def file(id):
     ext = os.path.splitext(file_path)[-1].lower()
 
     if not os.path.exists(file_path):
-        file_path = os.path.join(os.path.dirname(__file__), 'static/404.jpg')
+        file_path = os.path.join(web_root, 'static/404.jpg')
 
-    elif ext not in ['.jpg', '.png', '.gif', '.bmp', '.jpeg']:
-        file_path = os.path.join(os.path.dirname(__file__), 'static/not_supported.jpg')
+    elif ext not in web_preview_types:
+        file_path = os.path.join(web_root, 'static/not_supported.jpg')
 
     return send_file(file_path)

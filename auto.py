@@ -1,3 +1,22 @@
+"""
+auto mode will help you clean up duplicate files in other folders but keep in main folders.
+
+For example, you have duplicate files:
+
+- c:\photo\1.jpg
+- c:\somewhere\1.jpg
+- d:\somewhere\1.jpg
+
+You want to keep files in main folder (c:\photo) and cleanup all other files, use this script will save you a day!
+
+  python auto.py
+
+This command will clean up files:
+
+- only if have a copy in main folder
+- dup files out of main folder
+
+"""
 import logging
 
 from web.app import get_hash_dup, delete_file_by_id
