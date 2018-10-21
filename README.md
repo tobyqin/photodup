@@ -29,7 +29,7 @@ python scan.py dir1 dir2
 
 This action will scan all photo files into database (*.jpg by default, check `config.py`).
 
-# Step2 
+# Step3 
 
 Run command to start a web page to help you identify duplicate photos / files.
 
