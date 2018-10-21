@@ -7,27 +7,33 @@ For example, you have duplicate files:
 - c:\somewhere\1.jpg
 - d:\somewhere\1.jpg
 
-You want to keep files in main folder (c:\photo) and cleanup all other files, use this script will save you a day!
+when: main_is_keep = True:
+    This script will keep files in main folder (c:\photo) and cleanup all other files.
 
+when: main_is_keep = False:
+    This script will delete files in main folder and keep all other files.
+
+Script Usage:
   python auto.py
 
-This command will clean up files:
+The clean up rules:
 
-- only if have a copy in main folder
-- dup files out of main folder
+- when keep main, clear all duplicates out of main.
+- when clear main, clear all duplicates in main.
 
 """
 import logging
 
 from web.app import get_hash_dup, delete_file_by_id
 
-main_folder = r'E:\照片'
+main_folder = r'H:\Photos\TODO'
 process_count = 20000
+main_is_keep = False
 
 dup = get_hash_dup(process_count)
 
 
-def is_in_main_folder(files):
+def dup_in_main_folder(files):
     if len(files) == 1:
         return False
 
@@ -41,7 +47,9 @@ def is_in_main_folder(files):
 def cleanup_files(files):
     for f in files:
         file, file_id = f[3], f[0]
-        if not file.startswith(main_folder):
+        should_delete = file.startswith(main_folder) != main_is_keep
+
+        if should_delete:
             logging.info('delete {}'.format(file))
             try:
                 delete_file_by_id(file_id)
@@ -53,7 +61,7 @@ def cleanup_files(files):
 
 for hash, files in dup.items():
     logging.info('processing {}'.format(hash))
-    if is_in_main_folder(files):
+    if dup_in_main_folder(files):
         cleanup_files(files)
     else:
         logging.info('No need to cleanup.')
