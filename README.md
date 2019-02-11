@@ -42,3 +42,29 @@ Launch browser to http://127.0.0.1:5001 to cleanup the duplicates. You will be a
 ![dup_by_hash](web/static/dup_by_hash.png)
 
 ![dup_by_name](web/static/dup_by_name.png)
+
+# Auto mode
+
+There is a `auto.py` in repo, it can clean up duplicates more quickly.
+
+Auto mode will help you clean up duplicate files in other folders but keep in main folders, or vice versa.
+
+For example, you have duplicate files:
+
+- c:\photo\1.jpg
+- c:\somewhere\1.jpg
+- d:\somewhere\1.jpg
+
+when: main_is_keep = True:
+    This script will keep files in main folder (c:\photo) and cleanup all other files.
+
+when: main_is_keep = False:
+    This script will delete files in main folder and keep all other files.
+
+Script Usage:
+  python auto.py
+
+The clean up rules:
+
+- when keep main, clear all duplicates out of main.
+- when clear main, clear all duplicates in main.

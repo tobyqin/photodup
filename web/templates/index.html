@@ -24,5 +24,6 @@
             <button type="submit" class="btn btn-primary">Delete</button>
         </form>
     {% endfor %}
+    {% if not data %}<h2>Great, no duplicates!</h2>{% endif %}
 
 {% endblock %}
