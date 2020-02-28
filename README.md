@@ -55,11 +55,11 @@ For example, you have duplicate files:
 - c:\somewhere\1.jpg
 - d:\somewhere\1.jpg
 
-when: main_is_keep = True:
-    This script will keep files in main folder (c:\photo) and cleanup all other files.
+when: `main_is_keep = True`:
+    This script will **keep files in main** folder (c:\photo) and **cleanup all other files**.
 
-when: main_is_keep = False:
-    This script will delete files in main folder and keep all other files.
+when: `main_is_keep = False`:
+    This script will **clean files in main** folder (c:\photo) and **keep all other files**.
 
 Script Usage:
   python auto.py
